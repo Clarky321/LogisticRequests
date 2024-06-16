@@ -1,0 +1,53 @@
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\LogisticRequests.exe.config
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\LogisticRequests.exe
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\LogisticRequests.pdb
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\Guna.UI2.dll
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.SuggestedBindingRedirects.cache
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.Properties.Resources.resources
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.GenerateResource.cache
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.CopyComplete
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.exe
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.pdb
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.log_in.resources
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\Guna.UI.dll
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.LogisticForm.resources
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.sign_up.resources
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.ProgressBar.resources
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.Add_Form1.resources
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.Admin_Panel.resources
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.Add_Form2.resources
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\EPPlus.dll
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\EPPlus.Interfaces.dll
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\EPPlus.System.Drawing.dll
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\EPPlus.xml
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+C:\Users\PC\Desktop\Project\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.ResolveComReference.cache
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\LogisticRequests.exe.config
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\LogisticRequests.exe
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\LogisticRequests.pdb
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\EPPlus.dll
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\EPPlus.Interfaces.dll
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\EPPlus.System.Drawing.dll
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\Guna.UI.dll
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\Guna.UI2.dll
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\EPPlus.xml
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.AssemblyReference.cache
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.ResolveComReference.cache
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.Add_Form1.resources
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.Add_Form2.resources
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.Admin_Panel.resources
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.LogisticForm.resources
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.log_in.resources
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.ProgressBar.resources
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.Properties.Resources.resources
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.sign_up.resources
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.GenerateResource.cache
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.CoreCompileInputs.cache
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.csproj.CopyComplete
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.exe
+C:\Users\vinan\Рабочий стол\Project7\LogisticRequests\LogisticRequests\obj\Debug\LogisticRequests.pdb

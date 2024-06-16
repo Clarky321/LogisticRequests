@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticRequests", "LogisticRequests\LogisticRequests.csproj", "{BA695467-6A61-470E-8EB1-9D819EB5D19F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA695467-6A61-470E-8EB1-9D819EB5D19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA695467-6A61-470E-8EB1-9D819EB5D19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA695467-6A61-470E-8EB1-9D819EB5D19F}.Debug|x64.ActiveCfg = Debug|x64
+		{BA695467-6A61-470E-8EB1-9D819EB5D19F}.Debug|x64.Build.0 = Debug|x64
+		{BA695467-6A61-470E-8EB1-9D819EB5D19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA695467-6A61-470E-8EB1-9D819EB5D19F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA695467-6A61-470E-8EB1-9D819EB5D19F}.Release|x64.ActiveCfg = Release|x64
+		{BA695467-6A61-470E-8EB1-9D819EB5D19F}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B43E395-A041-496F-8021-6E3CAAA5CAEB}
+	EndGlobalSection
+EndGlobal

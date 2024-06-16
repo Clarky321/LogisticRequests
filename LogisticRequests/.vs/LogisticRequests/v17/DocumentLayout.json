@@ -1,0 +1,169 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\!!loran-project\\Project7\\LogisticRequests\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\add_form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\add_form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\add_form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\add_form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\add_form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\add_form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\logisticform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\logisticform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\logisticform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\logisticform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\add_form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\add_form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\add_form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\add_form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|d:\\!!loran-project\\project7\\logisticrequests\\logisticrequests\\admin_panel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA695467-6A61-470E-8EB1-9D819EB5D19F}|LogisticRequests\\LogisticRequests.csproj|solutionrelative:logisticrequests\\admin_panel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Add_Form2.cs",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form2.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\Add_Form2.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form2.cs",
+              "RelativeToolTip": "LogisticRequests\\Add_Form2.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T11:43:49.378Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Add_Form3.cs",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form3.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\Add_Form3.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form3.cs",
+              "RelativeToolTip": "LogisticRequests\\Add_Form3.cs",
+              "ViewState": "AQIAADAAAAAAAAAAAAAAAEwAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T11:39:22.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Add_Form3.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form3.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\Add_Form3.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form3.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "LogisticRequests\\Add_Form3.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T11:30:50.345Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Add_Form2.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form2.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\Add_Form2.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form2.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "LogisticRequests\\Add_Form2.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T11:14:26.012Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LogisticForm.cs",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\LogisticForm.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\LogisticForm.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\LogisticForm.cs",
+              "RelativeToolTip": "LogisticRequests\\LogisticForm.cs",
+              "ViewState": "AQIAAMACAAAAAAAAAAAmwN4CAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T09:28:28.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LogisticForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\LogisticForm.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\LogisticForm.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\LogisticForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "LogisticRequests\\LogisticForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T09:16:06.708Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DataBase.cs",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\DataBase.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\DataBase.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\DataBase.cs",
+              "RelativeToolTip": "LogisticRequests\\DataBase.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAACsAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T09:07:56.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Admin_Panel.cs",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Admin_Panel.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\Admin_Panel.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Admin_Panel.cs",
+              "RelativeToolTip": "LogisticRequests\\Admin_Panel.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAmwFIAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T09:05:46.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Add_Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form1.cs",
+              "RelativeDocumentMoniker": "LogisticRequests\\Add_Form1.cs",
+              "ToolTip": "D:\\!!loran-project\\Project7\\LogisticRequests\\LogisticRequests\\Add_Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "LogisticRequests\\Add_Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T11:19:27.157Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
