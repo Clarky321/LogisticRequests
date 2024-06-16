@@ -2,7 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Data.SQLite; // Используем SQLite
+using System.Data.SQLite;
 
 namespace LogisticRequests
 {
@@ -38,8 +38,6 @@ namespace LogisticRequests
                 return;
             }
 
-            dataBase.openConnection();
-
             int carrying;
             if (!int.TryParse(TextBox_Сarrying.Text, out carrying))
             {
@@ -49,24 +47,26 @@ namespace LogisticRequests
 
             var addQuery = "INSERT INTO Driver (FIO, Series_Pass, Pass_issued, Date_issued, Phone, Name_auto, Tractor, Trailer, Сarrying) VALUES (@FIO, @Series_Pass, @Pass_issued, @Date_issued, @Phone, @Name_auto, @Tractor, @Trailer, @Сarrying)";
 
-            using (SQLiteCommand command = new SQLiteCommand(addQuery, dataBase.GetConnection()))
+            using (var conn = dataBase.GetConnection())
             {
-                command.Parameters.AddWithValue("@FIO", TextBox_FIO.Text);
-                command.Parameters.AddWithValue("@Series_Pass", TextBox_Series_Pass.Text);
-                command.Parameters.AddWithValue("@Pass_issued", TextBox_Pass_issued.Text);
-                command.Parameters.AddWithValue("@Date_issued", TextBox_Date_issued.Text);
-                command.Parameters.AddWithValue("@Phone", TextBox_Phone.Text);
-                command.Parameters.AddWithValue("@Name_auto", TextBox_Name_auto.Text);
-                command.Parameters.AddWithValue("@Tractor", TextBox_Tractor.Text);
-                command.Parameters.AddWithValue("@Trailer", TextBox_Trailer.Text);
-                command.Parameters.AddWithValue("@Сarrying", carrying);
+                using (SQLiteCommand command = new SQLiteCommand(addQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@FIO", TextBox_FIO.Text);
+                    command.Parameters.AddWithValue("@Series_Pass", TextBox_Series_Pass.Text);
+                    command.Parameters.AddWithValue("@Pass_issued", TextBox_Pass_issued.Text);
+                    command.Parameters.AddWithValue("@Date_issued", TextBox_Date_issued.Text);
+                    command.Parameters.AddWithValue("@Phone", TextBox_Phone.Text);
+                    command.Parameters.AddWithValue("@Name_auto", TextBox_Name_auto.Text);
+                    command.Parameters.AddWithValue("@Tractor", TextBox_Tractor.Text);
+                    command.Parameters.AddWithValue("@Trailer", TextBox_Trailer.Text);
+                    command.Parameters.AddWithValue("@Сarrying", carrying);
 
-                command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
 
-                MessageBox.Show("Запись успешно создана", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Запись успешно создана", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
 
-            dataBase.closeConnection();
             ClearField();
         }
     }

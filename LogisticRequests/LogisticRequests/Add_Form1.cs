@@ -2,7 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Data.SQLite; // Используем SQLite
+using System.Data.SQLite;
 
 namespace LogisticRequests
 {
@@ -37,8 +37,6 @@ namespace LogisticRequests
                 return;
             }
 
-            dataBase.openConnection();
-
             var enterprises = TextBox_Enterprasis.Text;
             var cargo_type = TextBox_Cargo_type.Text;
             var tonnage = TextBox_Tonnage.Text;
@@ -53,21 +51,24 @@ namespace LogisticRequests
             {
                 var addQuery = "INSERT INTO Enterprises (enterprises, cargo_type, tonnage, weight_per_load, load_city, unloading_city, shipping_cost, timing, status) VALUES (@enterprises, @cargo_type, @tonnage, @weight_per_load, @load_city, @unloading_city, @shipping_cost, @timing, @status)";
 
-                using (SQLiteCommand command = new SQLiteCommand(addQuery, dataBase.GetConnection()))
+                using (var conn = dataBase.GetConnection())
                 {
-                    command.Parameters.AddWithValue("@enterprises", enterprises);
-                    command.Parameters.AddWithValue("@cargo_type", cargo_type);
-                    command.Parameters.AddWithValue("@tonnage", tonnage);
-                    command.Parameters.AddWithValue("@weight_per_load", weight_per_load);
-                    command.Parameters.AddWithValue("@load_city", load_city);
-                    command.Parameters.AddWithValue("@unloading_city", unloading_city);
-                    command.Parameters.AddWithValue("@shipping_cost", shipping_cost);
-                    command.Parameters.AddWithValue("@timing", timing);
-                    command.Parameters.AddWithValue("@status", status);
+                    using (SQLiteCommand command = new SQLiteCommand(addQuery, conn))
+                    {
+                        command.Parameters.AddWithValue("@enterprises", enterprises);
+                        command.Parameters.AddWithValue("@cargo_type", cargo_type);
+                        command.Parameters.AddWithValue("@tonnage", tonnage);
+                        command.Parameters.AddWithValue("@weight_per_load", weight_per_load);
+                        command.Parameters.AddWithValue("@load_city", load_city);
+                        command.Parameters.AddWithValue("@unloading_city", unloading_city);
+                        command.Parameters.AddWithValue("@shipping_cost", shipping_cost);
+                        command.Parameters.AddWithValue("@timing", timing);
+                        command.Parameters.AddWithValue("@status", status);
 
-                    command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
 
-                    MessageBox.Show("Запись успешно создана", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Запись успешно создана", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             else
@@ -75,9 +76,7 @@ namespace LogisticRequests
                 MessageBox.Show("Цена должна иметь числовой формат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            dataBase.closeConnection();
-
-            //ClearField();
+            ClearField();
         }
     }
 }

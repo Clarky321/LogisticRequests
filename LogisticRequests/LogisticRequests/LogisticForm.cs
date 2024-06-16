@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using Guna.UI2.WinForms.Enums;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
 using Microsoft.Office.Interop.Word;
 
 namespace LogisticRequests
 {
+    //переменные RowState для функций
     enum RowState
     {
         Existed,
@@ -20,13 +23,16 @@ namespace LogisticRequests
     public partial class LogisticForm : Form
     {
         private readonly checkUser _user;
-        private DataBase dataBase = new DataBase();
-        private int SelectedRow;
+
+        DataBase dataBase = new DataBase();
+
+        int SelectedRow;
 
         public LogisticForm(checkUser user)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
+
             _user = user;
         }
 
@@ -36,8 +42,10 @@ namespace LogisticRequests
             CreateColumns2();
             RefreshDataGrid(dataGridView1);
             RefreshDataGrid2(dataGridView2);
+
             IsAdmin();
             toolStripLabel1.Text = $"{_user.Login}: {_user.Status}";
+
         }
 
         private void IsAdmin()
@@ -59,40 +67,33 @@ namespace LogisticRequests
             dataGridView1.Columns.Add("unloading_city", "Город выгрузки");
             dataGridView1.Columns.Add("shipping_cost", "Цена доставки");
             dataGridView1.Columns.Add("timing", "Срок");
-            dataGridView1.Columns.Add("status", "Статус"); // нов
+            dataGridView1.Columns.Add("status", "Статус");
             dataGridView1.Columns.Add("IsNew", String.Empty);
         }
 
         private void ReadSingleRow(DataGridView dgw, IDataRecord record)
         {
-            dgw.Rows.Add(record.GetInt32(0),
-                         record.GetString(1),
-                         record.GetString(2),
-                         record.GetInt32(3),
-                         record.GetString(4),
-                         record.GetString(5),
-                         record.GetString(6),
-                         record.GetDecimal(7),
-                         record.GetString(8),
-                         record.GetString(9), RowState.ModifiedNew);
+            dgw.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetString(2), record.GetString(3), record.GetString(4), record.GetString(5), record.GetString(6), record.GetDecimal(7), record.GetString(8), record.GetString(9), RowState.ModifiedNew);
         }
 
         private void RefreshDataGrid(DataGridView dgw)
         {
             dgw.Rows.Clear();
-            string querystring = "SELECT * FROM Enterprises";
 
-            using (SQLiteCommand command = new SQLiteCommand(querystring, dataBase.GetConnection()))
+            string querystring = $"SELECT * FROM Enterprises";
+
+            using (var conn = dataBase.GetConnection())
             {
-                dataBase.openConnection();
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                using (SQLiteCommand command = new SQLiteCommand(querystring, conn))
                 {
-                    while (reader.Read())
+                    using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        ReadSingleRow(dgw, reader);
+                        while (reader.Read())
+                        {
+                            ReadSingleRow(dgw, reader);
+                        }
                     }
                 }
-                dataBase.closeConnection();
             }
         }
 
@@ -125,19 +126,21 @@ namespace LogisticRequests
         private void Search(DataGridView dgw)
         {
             dgw.Rows.Clear();
-            string querystring = $"SELECT * FROM Enterprises WHERE CONCAT(id_enterprises, enterprises, cargo_type, tonnage, weight_per_load, load_city, unloading_city, shipping_cost, timing) LIKE '%" + TextBox_Search.Text + "%'";
 
-            using (SQLiteCommand command = new SQLiteCommand(querystring, dataBase.GetConnection()))
+            string querystring = $"SELECT * FROM Enterprises WHERE CONCAT (id_enterprises, enterprises, cargo_type, tonnage, weight_per_load, load_city, unloading_city, shipping_cost, timing) like '%" + TextBox_Search.Text + "%'";
+
+            using (var conn = dataBase.GetConnection())
             {
-                dataBase.openConnection();
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                using (SQLiteCommand command = new SQLiteCommand(querystring, conn))
                 {
-                    while (reader.Read())
+                    using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        ReadSingleRow(dgw, reader);
+                        while (reader.Read())
+                        {
+                            ReadSingleRow(dgw, reader);
+                        }
                     }
                 }
-                dataBase.closeConnection();
             }
         }
 
@@ -155,15 +158,17 @@ namespace LogisticRequests
         private void DeleteRow()
         {
             int index = dataGridView1.CurrentCell.RowIndex;
+
             dataGridView1.Rows[index].Visible = false;
 
             if (dataGridView1.Rows[index].Cells[0].Value.ToString() == string.Empty)
             {
-                dataGridView1.Rows[index].Cells[10].Value = RowState.Deleted;
+                dataGridView1.Rows[index].Cells[9].Value = RowState.Deleted;
+
                 return;
             }
 
-            dataGridView1.Rows[index].Cells[10].Value = RowState.Deleted;
+            dataGridView1.Rows[index].Cells[9].Value = RowState.Deleted;
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -173,59 +178,49 @@ namespace LogisticRequests
 
         private void SaveData()
         {
-            dataBase.openConnection();
-
-            for (int index = 0; index < dataGridView1.Rows.Count; index++)
+            using (var conn = dataBase.GetConnection())
             {
-                var rowState = (RowState)dataGridView1.Rows[index].Cells[10].Value;
-
-                if (rowState == RowState.Existed)
-                    continue;
-
-                if (rowState == RowState.Deleted)
+                for (int index = 0; index < dataGridView1.Rows.Count; index++)
                 {
-                    var identity = Convert.ToInt32(dataGridView1.Rows[index].Cells[0].Value);
-                    var deleteQuery = $"DELETE FROM Enterprises WHERE id_enterprises = {identity}";
+                    var rowState = (RowState)dataGridView1.Rows[index].Cells[9].Value;
 
-                    using (SQLiteCommand command = new SQLiteCommand(deleteQuery, dataBase.GetConnection()))
+                    if (rowState == RowState.Existed)
+                        continue;
+
+                    if (rowState == RowState.Deleted)
                     {
-                        command.ExecuteNonQuery();
+                        var identity = Convert.ToInt32(dataGridView1.Rows[index].Cells[0].Value);
+
+                        var deleteQuery = $"DELETE FROM Enterprises WHERE id_enterprises = {identity}";
+
+                        using (SQLiteCommand command = new SQLiteCommand(deleteQuery, conn))
+                        {
+                            command.ExecuteNonQuery();
+                        }
                     }
-                }
 
-                if (rowState == RowState.Modified)
-                {
-                    var id_enterprises = dataGridView1.Rows[index].Cells[0].Value.ToString();
-                    var enterprises = dataGridView1.Rows[index].Cells[1].Value.ToString();
-                    var cargo_type = dataGridView1.Rows[index].Cells[2].Value.ToString();
-                    var tonnage = dataGridView1.Rows[index].Cells[3].Value.ToString();
-                    var weight_per_load = dataGridView1.Rows[index].Cells[4].Value.ToString();
-                    var load_city = dataGridView1.Rows[index].Cells[5].Value.ToString();
-                    var unloading_city = dataGridView1.Rows[index].Cells[6].Value.ToString();
-                    var shipping_cost = dataGridView1.Rows[index].Cells[7].Value.ToString();
-                    var timing = dataGridView1.Rows[index].Cells[8].Value.ToString();
-                    var status = dataGridView1.Rows[index].Cells[9].Value.ToString();
-
-                    var changeQuery = $"UPDATE Enterprises SET enterprises = @enterprises, cargo_type = @cargo_type, tonnage = @tonnage, weight_per_load = @weight_per_load, load_city = @load_city, unloading_city = @unloading_city, shipping_cost = @shipping_cost, timing = @timing, status = @status WHERE id_enterprises = @id_enterprises";
-
-                    using (SQLiteCommand command = new SQLiteCommand(changeQuery, dataBase.GetConnection()))
+                    if (rowState == RowState.Modified)
                     {
-                        command.Parameters.AddWithValue("@id_enterprises", id_enterprises);
-                        command.Parameters.AddWithValue("@enterprises", enterprises);
-                        command.Parameters.AddWithValue("@cargo_type", cargo_type);
-                        command.Parameters.AddWithValue("@tonnage", tonnage);
-                        command.Parameters.AddWithValue("@weight_per_load", weight_per_load);
-                        command.Parameters.AddWithValue("@load_city", load_city);
-                        command.Parameters.AddWithValue("@unloading_city", unloading_city);
-                        command.Parameters.AddWithValue("@shipping_cost", shipping_cost);
-                        command.Parameters.AddWithValue("@timing", timing);
-                        command.Parameters.AddWithValue("@status", status);
+                        var id_enterprises = dataGridView1.Rows[index].Cells[0].Value.ToString();
+                        var enterprises = dataGridView1.Rows[index].Cells[1].Value.ToString();
+                        var cargo_type = dataGridView1.Rows[index].Cells[2].Value.ToString();
+                        var tonnage = dataGridView1.Rows[index].Cells[3].Value.ToString();
+                        var weight_per_load = dataGridView1.Rows[index].Cells[4].Value.ToString();
+                        var load_city = dataGridView1.Rows[index].Cells[5].Value.ToString();
+                        var unloading_city = dataGridView1.Rows[index].Cells[6].Value.ToString();
+                        var shipping_cost = dataGridView1.Rows[index].Cells[7].Value.ToString();
+                        var timing = dataGridView1.Rows[index].Cells[8].Value.ToString();
+                        var status = dataGridView1.Rows[index].Cells[9].Value.ToString();
 
-                        command.ExecuteNonQuery();
+                        var changeQuery = $"UPDATE Enterprises SET enterprises = '{enterprises}', cargo_type = '{cargo_type}', tonnage = '{tonnage}', weight_per_load = '{weight_per_load}', load_city = '{load_city}', unloading_city = '{unloading_city}', shipping_cost = '{shipping_cost}', timing = '{timing}' WHERE id_enterprises = '{id_enterprises}'";
+
+                        using (SQLiteCommand command = new SQLiteCommand(changeQuery, conn))
+                        {
+                            command.ExecuteNonQuery();
+                        }
                     }
                 }
             }
-            dataBase.closeConnection();
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -282,6 +277,7 @@ namespace LogisticRequests
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Выход из приложения
             System.Windows.Forms.Application.Exit();
         }
 
@@ -308,19 +304,21 @@ namespace LogisticRequests
         private void RefreshDataGrid2(DataGridView dgw)
         {
             dgw.Rows.Clear();
-            string querystring = "SELECT * FROM Driver";
 
-            using (SQLiteCommand command = new SQLiteCommand(querystring, dataBase.GetConnection()))
+            string querystring = $"SELECT * FROM Driver";
+
+            using (var conn = dataBase.GetConnection())
             {
-                dataBase.openConnection();
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                using (SQLiteCommand command = new SQLiteCommand(querystring, conn))
                 {
-                    while (reader.Read())
+                    using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        ReadSingleRow2(dgw, reader);
+                        while (reader.Read())
+                        {
+                            ReadSingleRow2(dgw, reader);
+                        }
                     }
                 }
-                dataBase.closeConnection();
             }
         }
 
@@ -353,19 +351,21 @@ namespace LogisticRequests
         private void Search2(DataGridView dgw)
         {
             dgw.Rows.Clear();
-            string querystring = $"SELECT * FROM Driver WHERE CONCAT(id_driver, FIO, Series_Pass, Pass_issued, Date_issued, Phone, Name_auto, Tractor, Trailer, Сarrying) LIKE '%" + TextBox_Search2.Text + "%'";
 
-            using (SQLiteCommand command = new SQLiteCommand(querystring, dataBase.GetConnection()))
+            string querystring = $"SELECT * FROM Driver WHERE CONCAT (id_driver, FIO, Series_Pass, Pass_issued, Date_issued, Phone, Name_auto, Tractor, Trailer, Сarrying) like '%" + TextBox_Search2.Text + "%'";
+
+            using (var conn = dataBase.GetConnection())
             {
-                dataBase.openConnection();
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                using (SQLiteCommand command = new SQLiteCommand(querystring, conn))
                 {
-                    while (reader.Read())
+                    using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        ReadSingleRow2(dgw, reader);
+                        while (reader.Read())
+                        {
+                            ReadSingleRow2(dgw, reader);
+                        }
                     }
                 }
-                dataBase.closeConnection();
             }
         }
 
@@ -383,11 +383,13 @@ namespace LogisticRequests
         private void DeleteRow2()
         {
             int index = dataGridView2.CurrentCell.RowIndex;
+
             dataGridView2.Rows[index].Visible = false;
 
             if (dataGridView2.Rows[index].Cells[0].Value.ToString() == string.Empty)
             {
                 dataGridView2.Rows[index].Cells[10].Value = RowState.Deleted;
+
                 return;
             }
 
@@ -401,59 +403,49 @@ namespace LogisticRequests
 
         private void SaveData2()
         {
-            dataBase.openConnection();
-
-            for (int index = 0; index < dataGridView2.Rows.Count; index++)
+            using (var conn = dataBase.GetConnection())
             {
-                var rowState = (RowState)dataGridView2.Rows[index].Cells[10].Value;
-
-                if (rowState == RowState.Existed)
-                    continue;
-
-                if (rowState == RowState.Deleted)
+                for (int index = 0; index < dataGridView2.Rows.Count; index++)
                 {
-                    var identity = Convert.ToInt32(dataGridView2.Rows[index].Cells[0].Value);
-                    var deleteQuery = $"DELETE FROM Driver WHERE id_driver = {identity}";
+                    var rowState = (RowState)dataGridView2.Rows[index].Cells[10].Value;
 
-                    using (SQLiteCommand command = new SQLiteCommand(deleteQuery, dataBase.GetConnection()))
+                    if (rowState == RowState.Existed)
+                        continue;
+
+                    if (rowState == RowState.Deleted)
                     {
-                        command.ExecuteNonQuery();
+                        var identity = Convert.ToInt32(dataGridView2.Rows[index].Cells[0].Value);
+
+                        var deleteQuery = $"DELETE FROM Driver WHERE id_driver = {identity}";
+
+                        using (SQLiteCommand command = new SQLiteCommand(deleteQuery, conn))
+                        {
+                            command.ExecuteNonQuery();
+                        }
                     }
-                }
 
-                if (rowState == RowState.Modified)
-                {
-                    var id_driver = dataGridView2.Rows[index].Cells[0].Value.ToString();
-                    var FIO = dataGridView2.Rows[index].Cells[1].Value.ToString();
-                    var Series_Pass = dataGridView2.Rows[index].Cells[2].Value.ToString();
-                    var Pass_issued = dataGridView2.Rows[index].Cells[3].Value.ToString();
-                    var Date_issued = dataGridView2.Rows[index].Cells[4].Value.ToString();
-                    var Phone = dataGridView2.Rows[index].Cells[5].Value.ToString();
-                    var Name_auto = dataGridView2.Rows[index].Cells[6].Value.ToString();
-                    var Tractor = dataGridView2.Rows[index].Cells[7].Value.ToString();
-                    var Trailer = dataGridView2.Rows[index].Cells[8].Value.ToString();
-                    var Сarrying = dataGridView2.Rows[index].Cells[9].Value.ToString();
-
-                    var changeQuery = $"UPDATE Driver SET FIO = @FIO, Series_Pass = @Series_Pass, Pass_issued = @Pass_issued, Date_issued = @Date_issued, Phone = @Phone, Name_auto = @Name_auto, Tractor = @Tractor, Trailer = @Trailer, Сarrying = @Сarrying WHERE id_driver = @id_driver";
-
-                    using (SQLiteCommand command = new SQLiteCommand(changeQuery, dataBase.GetConnection()))
+                    if (rowState == RowState.Modified)
                     {
-                        command.Parameters.AddWithValue("@id_driver", id_driver);
-                        command.Parameters.AddWithValue("@FIO", FIO);
-                        command.Parameters.AddWithValue("@Series_Pass", Series_Pass);
-                        command.Parameters.AddWithValue("@Pass_issued", Pass_issued);
-                        command.Parameters.AddWithValue("@Date_issued", Date_issued);
-                        command.Parameters.AddWithValue("@Phone", Phone);
-                        command.Parameters.AddWithValue("@Name_auto", Name_auto);
-                        command.Parameters.AddWithValue("@Tractor", Tractor);
-                        command.Parameters.AddWithValue("@Trailer", Trailer);
-                        command.Parameters.AddWithValue("@Сarrying", Сarrying);
+                        var id_driver = dataGridView2.Rows[index].Cells[0].Value.ToString();
+                        var FIO = dataGridView2.Rows[index].Cells[1].Value.ToString();
+                        var Series_Pass = dataGridView2.Rows[index].Cells[2].Value.ToString();
+                        var Pass_issued = dataGridView2.Rows[index].Cells[3].Value.ToString();
+                        var Date_issued = dataGridView2.Rows[index].Cells[4].Value.ToString();
+                        var Phone = dataGridView2.Rows[index].Cells[5].Value.ToString();
+                        var Name_auto = dataGridView2.Rows[index].Cells[6].Value.ToString();
+                        var Tractor = dataGridView2.Rows[index].Cells[7].Value.ToString();
+                        var Trailer = dataGridView2.Rows[index].Cells[8].Value.ToString();
+                        var Сarrying = dataGridView2.Rows[index].Cells[9].Value.ToString();
 
-                        command.ExecuteNonQuery();
+                        var changeQuery = $"UPDATE Driver SET FIO = '{FIO}', Series_Pass = '{Series_Pass}', Pass_issued = '{Pass_issued}', Date_issued = '{Date_issued}', Phone = '{Phone}', Name_auto = '{Name_auto}', Tractor = '{Tractor}', Trailer = '{Trailer}', Сarrying = '{Сarrying}' WHERE id_driver = '{id_driver}'";
+
+                        using (SQLiteCommand command = new SQLiteCommand(changeQuery, conn))
+                        {
+                            command.ExecuteNonQuery();
+                        }
                     }
                 }
             }
-            dataBase.closeConnection();
         }
 
         private void btnSaveData2_Click(object sender, EventArgs e)
@@ -499,51 +491,53 @@ namespace LogisticRequests
         {
             try
             {
-                dataBase.openConnection();
-                string SqlExport = "SELECT * FROM Enterprises";
-
-                using (SQLiteCommand command = new SQLiteCommand(SqlExport, dataBase.GetConnection()))
+                using (var conn = dataBase.GetConnection())
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    string SqlExport = "SELECT * FROM Enterprises";
+
+                    using (SQLiteCommand command = new SQLiteCommand(SqlExport, conn))
                     {
-                        // Создаем новый документ Excel
-                        ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-                        ExcelPackage excelPackage = new ExcelPackage();
-                        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
-
-                        // Записываем заголовки столбцов
-                        int column = 1;
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        using (SQLiteDataReader reader = command.ExecuteReader())
                         {
-                            worksheet.Cells[1, column].Value = reader.GetName(i);
-                            column++;
-                        }
+                            // Создаем новый документ Excel
+                            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                            ExcelPackage excelPackage = new ExcelPackage();
+                            ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
 
-                        // Записываем данные
-                        int row = 2;
-                        while (reader.Read())
-                        {
-                            column = 1;
+                            // Записываем заголовки столбцов
+                            int column = 1;
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                worksheet.Cells[row, column].Value = reader[i];
+                                worksheet.Cells[1, column].Value = reader.GetName(i);
                                 column++;
                             }
-                            row++;
-                        }
 
-                        // Форматируем данные как таблицу
-                        ExcelRange dataRange = worksheet.Cells[1, 1, row - 1, reader.FieldCount];
-                        ExcelTable table = worksheet.Tables.Add(dataRange, "Table1");
-                        table.TableStyle = TableStyles.Light1;
+                            // Записываем данные
+                            int row = 2;
+                            while (reader.Read())
+                            {
+                                column = 1;
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    worksheet.Cells[row, column].Value = reader[i];
+                                    column++;
+                                }
+                                row++;
+                            }
 
-                        // Сохраняем документ Excel
-                        SaveFileDialog saveFileDialog = new SaveFileDialog();
-                        saveFileDialog.Filter = "Excel Files|*.xlsx";
-                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            excelPackage.SaveAs(new System.IO.FileInfo(saveFileDialog.FileName));
-                            MessageBox.Show("Данные успешно экспортированы в Excel");
+                            // Форматируем данные как таблицу
+                            ExcelRange dataRange = worksheet.Cells[1, 1, row - 1, reader.FieldCount];
+                            ExcelTable table = worksheet.Tables.Add(dataRange, "Table1");
+                            table.TableStyle = TableStyles.Light1;
+
+                            // Сохраняем документ Excel
+                            SaveFileDialog saveFileDialog = new SaveFileDialog();
+                            saveFileDialog.Filter = "Excel Files|*.xlsx";
+                            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                excelPackage.SaveAs(new System.IO.FileInfo(saveFileDialog.FileName));
+                                MessageBox.Show("Данные успешно экспортированы в Excel");
+                            }
                         }
                     }
                 }
@@ -563,51 +557,53 @@ namespace LogisticRequests
         {
             try
             {
-                dataBase.openConnection();
-                string SqlExport = "SELECT * FROM Driver";
-
-                using (SQLiteCommand command = new SQLiteCommand(SqlExport, dataBase.GetConnection()))
+                using (var conn = dataBase.GetConnection())
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    string SqlExport = "SELECT * FROM Driver";
+
+                    using (SQLiteCommand command = new SQLiteCommand(SqlExport, conn))
                     {
-                        // Создаем новый документ Excel
-                        ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-                        ExcelPackage excelPackage = new ExcelPackage();
-                        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
-
-                        // Записываем заголовки столбцов
-                        int column = 1;
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        using (SQLiteDataReader reader = command.ExecuteReader())
                         {
-                            worksheet.Cells[1, column].Value = reader.GetName(i);
-                            column++;
-                        }
+                            // Создаем новый документ Excel
+                            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                            ExcelPackage excelPackage = new ExcelPackage();
+                            ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
 
-                        // Записываем данные
-                        int row = 2;
-                        while (reader.Read())
-                        {
-                            column = 1;
+                            // Записываем заголовки столбцов
+                            int column = 1;
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                worksheet.Cells[row, column].Value = reader[i];
+                                worksheet.Cells[1, column].Value = reader.GetName(i);
                                 column++;
                             }
-                            row++;
-                        }
 
-                        // Форматируем данные как таблицу
-                        ExcelRange dataRange = worksheet.Cells[1, 1, row - 1, reader.FieldCount];
-                        ExcelTable table = worksheet.Tables.Add(dataRange, "Table1");
-                        table.TableStyle = TableStyles.Light1;
+                            // Записываем данные
+                            int row = 2;
+                            while (reader.Read())
+                            {
+                                column = 1;
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    worksheet.Cells[row, column].Value = reader[i];
+                                    column++;
+                                }
+                                row++;
+                            }
 
-                        // Сохраняем документ Excel
-                        SaveFileDialog saveFileDialog = new SaveFileDialog();
-                        saveFileDialog.Filter = "Excel Files|*.xlsx";
-                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            excelPackage.SaveAs(new System.IO.FileInfo(saveFileDialog.FileName));
-                            MessageBox.Show("Данные успешно экспортированы в Excel");
+                            // Форматируем данные как таблицу
+                            ExcelRange dataRange = worksheet.Cells[1, 1, row - 1, reader.FieldCount];
+                            ExcelTable table = worksheet.Tables.Add(dataRange, "Table1");
+                            table.TableStyle = TableStyles.Light1;
+
+                            // Сохраняем документ Excel
+                            SaveFileDialog saveFileDialog = new SaveFileDialog();
+                            saveFileDialog.Filter = "Excel Files|*.xlsx";
+                            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                excelPackage.SaveAs(new System.IO.FileInfo(saveFileDialog.FileName));
+                                MessageBox.Show("Данные успешно экспортированы в Excel");
+                            }
                         }
                     }
                 }
@@ -721,11 +717,6 @@ namespace LogisticRequests
         private void отчётТаблицы2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExportToWord2();
-        }
-
-        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void заявкиводительToolStripMenuItem_Click(object sender, EventArgs e)

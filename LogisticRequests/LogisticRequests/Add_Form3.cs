@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using System.Data.Entity;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LogisticRequests
 {
@@ -40,7 +33,6 @@ namespace LogisticRequests
 
             using (var conn = dataBase.GetConnection())
             {
-                conn.Open();
                 string query = "SELECT * FROM Enterprises";
                 using (var cmd = new SQLiteCommand(query, conn))
                 {
@@ -52,7 +44,6 @@ namespace LogisticRequests
                         }
                     }
                 }
-                conn.Close();
             }
         }
 
@@ -73,21 +64,28 @@ namespace LogisticRequests
             var id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             var status = ComboBox_status.SelectedItem.ToString();
 
-            using (var conn = dataBase.GetConnection())
+            try
             {
-                conn.Open();
-                string query = "UPDATE Enterprises SET status = @status WHERE id_enterprises = @id";
-                using (var cmd = new SQLiteCommand(query, conn))
+                using (var conn = dataBase.GetConnection())
                 {
-                    cmd.Parameters.AddWithValue("@status", status);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
+                    string query = "UPDATE Enterprises SET status = @status WHERE id_enterprises = @id";
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@status", status);
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-                conn.Close();
+                MessageBox.Show("Status updated successfully.");
             }
-
-            MessageBox.Show("Status updated successfully.");
-            LoadData(); // Reload data to reflect changes
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            finally
+            {
+                LoadData(); // Reload data to reflect changes
+            }
         }
     }
 }

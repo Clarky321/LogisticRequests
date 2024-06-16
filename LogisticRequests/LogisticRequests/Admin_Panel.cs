@@ -39,17 +39,18 @@ namespace LogisticRequests
 
             string querystring = "SELECT * FROM Account;";
 
-            using (SQLiteCommand command = new SQLiteCommand(querystring, dataBase.GetConnection()))
+            using (var conn = dataBase.GetConnection())
             {
-                dataBase.openConnection();
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                using (SQLiteCommand command = new SQLiteCommand(querystring, conn))
                 {
-                    while (reader.Read())
+                    using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        ReadSingleRow(reader);
+                        while (reader.Read())
+                        {
+                            ReadSingleRow(reader);
+                        }
                     }
                 }
-                dataBase.closeConnection();
             }
         }
 
@@ -61,24 +62,23 @@ namespace LogisticRequests
 
         private void btnSave2_Click(object sender, EventArgs e)
         {
-            dataBase.openConnection();
-
-            for (int index = 0; index < dataGridView1.Rows.Count; index++)
+            using (var conn = dataBase.GetConnection())
             {
-                var id = Convert.ToInt32(dataGridView1.Rows[index].Cells[0].Value);
-                var isadmin = Convert.ToBoolean(dataGridView1.Rows[index].Cells[4].Value);
-
-                var changeQuery = "UPDATE Account SET is_admin = @is_admin WHERE id_account = @id;";
-
-                using (SQLiteCommand command = new SQLiteCommand(changeQuery, dataBase.GetConnection()))
+                for (int index = 0; index < dataGridView1.Rows.Count; index++)
                 {
-                    command.Parameters.AddWithValue("@is_admin", isadmin);
-                    command.Parameters.AddWithValue("@id", id);
-                    command.ExecuteNonQuery();
+                    var id = Convert.ToInt32(dataGridView1.Rows[index].Cells[0].Value);
+                    var isadmin = Convert.ToBoolean(dataGridView1.Rows[index].Cells[4].Value);
+
+                    var changeQuery = "UPDATE Account SET is_admin = @is_admin WHERE id_account = @id;";
+
+                    using (SQLiteCommand command = new SQLiteCommand(changeQuery, conn))
+                    {
+                        command.Parameters.AddWithValue("@is_admin", isadmin);
+                        command.Parameters.AddWithValue("@id", id);
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
-
-            dataBase.closeConnection();
             RefreshDataGrid();
         }
 
@@ -87,20 +87,19 @@ namespace LogisticRequests
             if (dataGridView1.CurrentRow == null)
                 return;
 
-            dataBase.openConnection();
-
             var selectedRowIndex = dataGridView1.CurrentCell.RowIndex;
             var id = Convert.ToInt32(dataGridView1.Rows[selectedRowIndex].Cells[0].Value);
 
-            var deleteQuery = "DELETE FROM Account WHERE id_account = @id;";
-
-            using (SQLiteCommand command = new SQLiteCommand(deleteQuery, dataBase.GetConnection()))
+            using (var conn = dataBase.GetConnection())
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-            }
+                var deleteQuery = "DELETE FROM Account WHERE id_account = @id;";
 
-            dataBase.closeConnection();
+                using (SQLiteCommand command = new SQLiteCommand(deleteQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
             RefreshDataGrid();
         }
     }
