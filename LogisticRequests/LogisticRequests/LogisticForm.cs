@@ -127,7 +127,10 @@ namespace LogisticRequests
         {
             dgw.Rows.Clear();
 
-            string querystring = $"SELECT * FROM Enterprises WHERE CONCAT (id_enterprises, enterprises, cargo_type, tonnage, weight_per_load, load_city, unloading_city, shipping_cost, timing) like '%" + TextBox_Search.Text + "%'";
+            string querystring = "SELECT * FROM Enterprises WHERE " +
+                                 "(id_enterprises || ' ' || enterprises || ' ' || cargo_type || ' ' || " +
+                                 "tonnage || ' ' || weight_per_load || ' ' || load_city || ' ' || " +
+                                 "unloading_city || ' ' || shipping_cost || ' ' || timing) LIKE '%" + TextBox_Search.Text + "%'";
 
             using (var conn = dataBase.GetConnection())
             {
