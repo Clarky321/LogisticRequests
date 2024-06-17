@@ -68,6 +68,8 @@ namespace LogisticRequests
                         command.ExecuteNonQuery();
 
                         MessageBox.Show("Запись успешно создана", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        ClearField();
                     }
                 }
             }
@@ -75,8 +77,6 @@ namespace LogisticRequests
             {
                 MessageBox.Show("Цена должна иметь числовой формат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            ClearField();
         }
     }
 }

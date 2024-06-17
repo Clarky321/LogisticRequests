@@ -13,6 +13,7 @@ namespace LogisticRequests
         public Add_Form3()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
             LoadData();
             SetupComboBox();
         }
@@ -57,7 +58,7 @@ namespace LogisticRequests
         {
             if (dataGridView1.CurrentRow == null)
             {
-                MessageBox.Show("Select a row first.");
+                MessageBox.Show("Сначала выберите строку.");
                 return;
             }
 
@@ -76,11 +77,11 @@ namespace LogisticRequests
                         cmd.ExecuteNonQuery();
                     }
                 }
-                MessageBox.Show("Status updated successfully.");
+                MessageBox.Show("Статус успешно обновлён.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred: " + ex.Message);
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
             }
             finally
             {

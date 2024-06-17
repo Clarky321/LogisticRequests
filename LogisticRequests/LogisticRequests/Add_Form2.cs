@@ -67,7 +67,7 @@ namespace LogisticRequests
                 }
             }
 
-            ClearField();
+            //ClearField();
         }
     }
 }
