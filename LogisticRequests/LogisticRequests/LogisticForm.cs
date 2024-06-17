@@ -161,17 +161,15 @@ namespace LogisticRequests
         private void DeleteRow()
         {
             int index = dataGridView1.CurrentCell.RowIndex;
-
             dataGridView1.Rows[index].Visible = false;
-
             if (dataGridView1.Rows[index].Cells[0].Value.ToString() == string.Empty)
             {
-                dataGridView1.Rows[index].Cells[9].Value = RowState.Deleted;
-
-                return;
+                dataGridView1.Rows[index].Cells[10].Value = RowState.Deleted;
             }
-
-            dataGridView1.Rows[index].Cells[9].Value = RowState.Deleted;
+            else
+            {
+                dataGridView1.Rows[index].Cells[10].Value = RowState.Deleted;
+            }
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -183,44 +181,62 @@ namespace LogisticRequests
         {
             using (var conn = dataBase.GetConnection())
             {
-                for (int index = 0; index < dataGridView1.Rows.Count; index++)
+                dataBase.OpenConnection(conn);
+
+                using (var transaction = conn.BeginTransaction())
                 {
-                    var rowState = (RowState)dataGridView1.Rows[index].Cells[9].Value;
-
-                    if (rowState == RowState.Existed)
-                        continue;
-
-                    if (rowState == RowState.Deleted)
+                    try
                     {
-                        var identity = Convert.ToInt32(dataGridView1.Rows[index].Cells[0].Value);
-
-                        var deleteQuery = $"DELETE FROM Enterprises WHERE id_enterprises = {identity}";
-
-                        using (SQLiteCommand command = new SQLiteCommand(deleteQuery, conn))
+                        for (int index = 0; index < dataGridView1.Rows.Count; index++)
                         {
-                            command.ExecuteNonQuery();
+                            var rowState = (RowState)dataGridView1.Rows[index].Cells[10].Value;
+
+                            if (rowState == RowState.Existed)
+                                continue;
+
+                            if (rowState == RowState.Deleted)
+                            {
+                                var identity = Convert.ToInt32(dataGridView1.Rows[index].Cells[0].Value);
+
+                                var deleteQuery = $"DELETE FROM Enterprises WHERE id_enterprises = {identity}";
+
+                                using (SQLiteCommand command = new SQLiteCommand(deleteQuery, conn))
+                                {
+                                    command.ExecuteNonQuery();
+                                }
+                            }
+
+                            if (rowState == RowState.Modified)
+                            {
+                                var id_enterprises = dataGridView1.Rows[index].Cells[0].Value.ToString();
+                                var enterprises = dataGridView1.Rows[index].Cells[1].Value.ToString();
+                                var cargo_type = dataGridView1.Rows[index].Cells[2].Value.ToString();
+                                var tonnage = dataGridView1.Rows[index].Cells[3].Value.ToString();
+                                var weight_per_load = dataGridView1.Rows[index].Cells[4].Value.ToString();
+                                var load_city = dataGridView1.Rows[index].Cells[5].Value.ToString();
+                                var unloading_city = dataGridView1.Rows[index].Cells[6].Value.ToString();
+                                var shipping_cost = dataGridView1.Rows[index].Cells[7].Value.ToString();
+                                var timing = dataGridView1.Rows[index].Cells[8].Value.ToString();
+                                var status = dataGridView1.Rows[index].Cells[9].Value.ToString();
+
+                                var changeQuery = $"UPDATE Enterprises SET enterprises = '{enterprises}', cargo_type = '{cargo_type}', tonnage = '{tonnage}', weight_per_load = '{weight_per_load}', load_city = '{load_city}', unloading_city = '{unloading_city}', shipping_cost = '{shipping_cost}', timing = '{timing}', status = '{status}' WHERE id_enterprises = '{id_enterprises}'";
+
+                                using (SQLiteCommand command = new SQLiteCommand(changeQuery, conn))
+                                {
+                                    command.ExecuteNonQuery();
+                                }
+                            }
                         }
+                        transaction.Commit();
                     }
-
-                    if (rowState == RowState.Modified)
+                    catch (Exception ex)
                     {
-                        var id_enterprises = dataGridView1.Rows[index].Cells[0].Value.ToString();
-                        var enterprises = dataGridView1.Rows[index].Cells[1].Value.ToString();
-                        var cargo_type = dataGridView1.Rows[index].Cells[2].Value.ToString();
-                        var tonnage = dataGridView1.Rows[index].Cells[3].Value.ToString();
-                        var weight_per_load = dataGridView1.Rows[index].Cells[4].Value.ToString();
-                        var load_city = dataGridView1.Rows[index].Cells[5].Value.ToString();
-                        var unloading_city = dataGridView1.Rows[index].Cells[6].Value.ToString();
-                        var shipping_cost = dataGridView1.Rows[index].Cells[7].Value.ToString();
-                        var timing = dataGridView1.Rows[index].Cells[8].Value.ToString();
-                        var status = dataGridView1.Rows[index].Cells[9].Value.ToString();
-
-                        var changeQuery = $"UPDATE Enterprises SET enterprises = '{enterprises}', cargo_type = '{cargo_type}', tonnage = '{tonnage}', weight_per_load = '{weight_per_load}', load_city = '{load_city}', unloading_city = '{unloading_city}', shipping_cost = '{shipping_cost}', timing = '{timing}' WHERE id_enterprises = '{id_enterprises}'";
-
-                        using (SQLiteCommand command = new SQLiteCommand(changeQuery, conn))
-                        {
-                            command.ExecuteNonQuery();
-                        }
+                        transaction.Rollback();
+                        MessageBox.Show("An error occurred: " + ex.Message);
+                    }
+                    finally
+                    {
+                        dataBase.CloseConnection(conn);
                     }
                 }
             }
@@ -251,7 +267,7 @@ namespace LogisticRequests
                 if (int.TryParse(TextBox_Cost.Text, out shipping_cost))
                 {
                     dataGridView1.Rows[SelectedRowIndex].SetValues(id_enterprises, enterprises, cargo_type, tonnage, weight_per_load, load_city, unloading_city, shipping_cost, timing, status);
-                    dataGridView1.Rows[SelectedRowIndex].Cells[9].Value = RowState.Modified;
+                    dataGridView1.Rows[SelectedRowIndex].Cells[10].Value = RowState.Modified;
                 }
                 else
                 {
@@ -301,7 +317,7 @@ namespace LogisticRequests
 
         private void ReadSingleRow2(DataGridView dgw, IDataRecord record)
         {
-            dgw.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetString(2), record.GetString(3), record.GetDateTime(4), record.GetString(5), record.GetString(6), record.GetString(7), record.GetString(8), record.GetInt32(9), RowState.ModifiedNew);
+            dgw.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetString(2), record.GetString(3), record.GetString(4), record.GetString(5), record.GetString(6), record.GetString(7), record.GetString(8), record.GetInt32(9), RowState.ModifiedNew);
         }
 
         private void RefreshDataGrid2(DataGridView dgw)

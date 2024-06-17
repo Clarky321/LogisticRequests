@@ -76,5 +76,21 @@ namespace LogisticRequests
             connection.Open();
             return connection;
         }
+
+        public void OpenConnection(SQLiteConnection connection)
+        {
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+        }
+
+        public void CloseConnection(SQLiteConnection connection)
+        {
+            if (connection.State == System.Data.ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
     }
 }

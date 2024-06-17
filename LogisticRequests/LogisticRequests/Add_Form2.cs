@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Data.SQLite;
 
@@ -29,6 +30,11 @@ namespace LogisticRequests
             TextBox_Сarrying.Text = "";
         }
 
+        private bool IsNumeric(string input)
+        {
+            return Regex.IsMatch(input, @"^\d+$");
+        }
+
         private void BtnSave_Click(object sender, EventArgs e)
         {
             // Проверяем корректность введенных данных
@@ -38,10 +44,29 @@ namespace LogisticRequests
                 return;
             }
 
+            // Валидация полей Series_Pass, Pass_issued и Phone
+            if (!IsNumeric(TextBox_Series_Pass.Text))
+            {
+                MessageBox.Show("Поле 'Серия паспорта' должно содержать только цифры", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!IsNumeric(TextBox_Pass_issued.Text))
+            {
+                MessageBox.Show("Поле 'Паспорт выдан' должно содержать только цифры", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!IsNumeric(TextBox_Phone.Text))
+            {
+                MessageBox.Show("Поле 'Телефон' должно содержать только цифры", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int carrying;
             if (!int.TryParse(TextBox_Сarrying.Text, out carrying))
             {
-                MessageBox.Show("Грузоподёмность должна иметь числовой формат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Грузоподъемность должна иметь числовой формат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -67,7 +92,7 @@ namespace LogisticRequests
                 }
             }
 
-            //ClearField();
+            // ClearField(); // Очищаем поля после успешного добавления записи
         }
     }
 }
